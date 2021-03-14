@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='./static/css/style.css'>
+</head>
+
+<body>
+    <div id='header'>
+        <h1>KawaVo Chat</h1>
+    </div>
+    <div id='start'>
+        <h1 id='room_name'>Room Name</h1>
+        <p id='starting_msg' class='red'></p>
+        <br>
+        <label>
+            <input id='my_name_input' type="text" placeholder="yoru name" />
+        </label>
+        <button id="join_btn" type="button">Join</button>
+    </div>
+    <vbcs id="roomAudio">
+        <div id='members'>
+            <div class='member_div'>
+                <label>
+                    <div class="member">
+                        <img id='my_icon' src=''>
+                    </div>
+                </label>
+                <div class='username'>
+                    <span id='my_name'>You</span>
+                </div>
+            </div>
+        </div>
+    </vbcs>
+    <div id='operation'>
+        <input type="checkbox" id="mute_btn" name="mute">
+        <label for="mute_btn" id="mute_btn_label" class="btn_label">
+            <img src='./static/img/mute.svg'>
+        </label>
+        <audio id="myAudio"></audio>
+
+        <input type="checkbox" id="speaker_mute_btn" name="speaker_mute">
+        <label for="speaker_mute_btn" id="speaker_mute_btn_label" class="btn_label">
+            <img src='./static/img/speaker_mute.svg'>
+        </label>
+
+        <label id="hang_up_btn_label" class="btn_label">
+            <img src='./static/img/hang_out.svg'>
+        </label>
+    </div>
+
+    <input type="checkbox" id="text_chat_btn" name="text_chat">
+    <label for="text_chat_btn" id="text_chat_btn_label" class="btn_label">
+        <img src='./static/img/text_chat.svg'>
+    </label>
+    <div id='text_chat_space'>
+        <div id='msg_space'></div>
+        <input id='msg_input' type='text'>
+        <button id='send_msg_btn'>Send</button>
+    </div>
+
+    <script src="https://cdn.webrtc.ecl.ntt.com/skyway-4.4.0.js"></script>
+    <script src='./static/js/main.js'></script>
+    <script src='./static/js/vbcs.js'></script>
+</body>
+
+</html>
