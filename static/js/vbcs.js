@@ -235,24 +235,26 @@ const Peer = window.Peer;
         /**
          * チャットを受信した際
          */
+        tmp_user=''
         room.on("data", ({ data, src }) => {
             /**
              * テキストチャットにdataとsrcを表示
              */
             console.log(`${src}: ${data}\n`)
-            
             if (`${data["text"]}`=='connect'){
                 id2name[`${src}`]=`${data["username"]}`
                 AddMember(`${data["username"]}`,`../static/img/usericon/man${data["iconnum"]}.png`,`${src}`)
                 AddSystemMsg(`${data["username"]}さんが入室しました`)
-                if(bucket_relay){
-                    bucket_relay=false
-                    room.send({'username':myname,'text':'connect','iconnum':r})
-                }
             }else{
-                AddMsg(`${data["username"]}`,`${data["text"]}`,false)
+                Send(`nyan/${data["text"]}`,Callback1)
+                tmp_user=`${data["username"]}`
             }
         });
+        
+        function Callback1(res){
+            AddMsg(tmp_user,res['message'],false)
+        }
+
         /**
          * 他の参加者が切断した場合
          */
@@ -312,10 +314,15 @@ const Peer = window.Peer;
             }
             room.send({'username':myname,'text':myText.value});
             AddMsg(myname,myText.value,true)
+            Send('posneg/'+myText.value,Callback2)
             GE('msg_input').value=''
             console.log(`${peer.id}: ${myText.value}\n`)
             myText.value = "";
         }
+        function Callback2(res){
+            AddMsg('Cat',res['message'],false)
+        }
+        
 
         /**
          * 何かエラーが発生した際はエラーを表示する

@@ -9,6 +9,7 @@ bucket_relay=true
 //TODO 入った時点でユーザーがすでにいるユーザーをuser_tableに追加
 
 GE('mute_btn').addEventListener('change',()=>{
+    console.log('ok')
     if(GE('mute_btn').checked){
         //ミュートになったときの処理
     }else{
