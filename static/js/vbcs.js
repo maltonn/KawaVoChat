@@ -203,7 +203,8 @@ const Peer = window.Peer;
             console.log(`[メッセージ]：あなたは入室しました\nあなたのpeerIDは[${peer.id}]です\n\n`)
             r=Randint(5)+1
             room.send({'username':myname,'text':'connect','iconnum':r})
-            GE('my_icon').src='../static/img/usericon/man'+r+'.png'
+            iconnum=r
+            GE('my_icon').src='../static/img/usericon/girl'+r+'.png'
             AddSystemMsg('あなたが入室しました。')
         });
 
@@ -233,18 +234,20 @@ const Peer = window.Peer;
             });
         });
         /**
-         * チャットを受信した際
+         * チャットを受信した際 or 新しく人が入ってきたとき
          */
         tmp_user=''
         room.on("data", ({ data, src }) => {
-            /**
-             * テキストチャットにdataとsrcを表示
-             */
             console.log(`${src}: ${data}\n`)
-            if (`${data["text"]}`=='connect'){
-                id2name[`${src}`]=`${data["username"]}`
-                AddMember(`${data["username"]}`,`../static/img/usericon/man${data["iconnum"]}.png`,`${src}`)
-                AddSystemMsg(`${data["username"]}さんが入室しました`)
+            if (`${data["text"]}`=='connect' || `${data["text"]}`=='already_connected'){
+                if(!Object.keys(id2name).includes(`${src}`)){
+                    id2name[`${src}`]=`${data["username"]}`
+                    AddMember(`${data["username"]}`,`../static/img/usericon/girl${data["iconnum"]}.png`,`${src}`)
+                    if (`${data["text"]}`=='connect'){
+                        AddSystemMsg(`${data["username"]}さんが入室しました`)
+                    }
+                    room.send({'username':myname,'text':'already_connected','iconnum':iconnum})
+                }
             }else{
                 Send(`nyan/${data["text"]}`,Callback1)
                 tmp_user=`${data["username"]}`
@@ -320,7 +323,7 @@ const Peer = window.Peer;
             myText.value = "";
         }
         function Callback2(res){
-            AddMsg('Cat',res['message'],false)
+            AddMsg('ネコ',res['message'],false)
         }
         
 

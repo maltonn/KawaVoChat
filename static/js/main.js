@@ -5,6 +5,7 @@ GE('room_name').innerText=room_name || 'Public room'
 myname='anymous'
 id2name={}
 bucket_relay=true
+iconnum=-1
 
 //TODO 入った時点でユーザーがすでにいるユーザーをuser_tableに追加
 
